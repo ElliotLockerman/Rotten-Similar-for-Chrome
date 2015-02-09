@@ -2,12 +2,12 @@
 // create the panel and put in the loading gif
 
 
-var divs = document.getElementsByTagName("div");
-var i;
-var movie_info;
 
 // get the elment we want to append after, in this case, the class includes movie_info
-for (i in divs)
+var divs = document.getElementsByTagName("div");
+var movie_info;
+
+for (var i in divs)
 {
 	if((' ' + divs[i].className + ' ').indexOf(' ' + "movie_info" + ' ') > -1) 
 	{
@@ -23,6 +23,10 @@ movie_info.parentNode.insertBefore(rule, movie_info.nextSibling);
 var similar_div = document.createElement("div");
 similar_div.setAttribute("id", "similar_panel");
 movie_info.parentNode.insertBefore(similar_div, rule.nextSibling);
+
+
+
+
 
 
 // add the title and loading gif
@@ -55,43 +59,34 @@ document.getElementById("similar_title").parentNode.insertBefore(spinner.el, doc
 //spinner.style.position = "relative"; //for some reason, its absolute by default
 
 
-//*********************************************************************
 
 
 
 
-
-
-
-//*********************************************************************
-// First query - get the id by searching and taking the first result
-var api_key = "5vdj7je2uqr83vvx6rnqb4vh";
-var base_URL = "http://api.rottentomatoes.com/api/public/v1.0"
-
-
-
-// Get the title from the HTML
-var title = document.querySelector('[itemprop=name]').textContent.trim(); 
-title = title.replace(/\s+\(/, " ("); // Get rid of the formatting (replace countless spaces [and a newline] [ending in an open paren, so we get all the spaces] with a single space and the paren we deleted).
-
-
-var movie_ID = -1;
-var search_URL = base_URL + "/movies.json?q=" + encodeURIComponent(title) + "&page_limit=1&page=1&apikey=" + api_key;
-
-
-var xhr = new XMLHttpRequest();
-xhr.open("GET", search_URL, true);
-xhr.onreadystatechange = function(data)
+// Get the ID
+//<meta name="movieID" content="22501">
+var metas = document.getElementsByTagName("META");
+var movie_ID;
+for (i in metas)
 {
-    if (xhr.readyState == 4) 
+	if (metas[i].name === "movieID")
 	{
-		results = JSON.parse(xhr.responseText);
-		get_similar(results.movies[0].id, 6);
+		movie_ID = metas[i].content;
+		break;
 	}
 }
 
-xhr.send();
+
+
+
+// Get the first set of similars
+get_similar(movie_ID, 6)
+
 //*********************************************************************
+
+
+
+
 
 
 
