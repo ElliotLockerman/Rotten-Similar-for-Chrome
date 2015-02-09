@@ -116,18 +116,12 @@ function display_similar(similar_JSON)
 	else
 	{
 		for (mov in movies)
-		{
-			console.log(movies[mov].posters.thumbnail);
-			
+		{			
 			inner.innerHTML = inner.innerHTML + "<span class = \"film\">" + "<a href = \"" + movies[mov].links.alternate + "\">" + "<img src = \"" + movies[mov].posters.thumbnail + "\">" + "<div class = \"title\">" + movies[mov].title + "</div>"  + "<span class = \"year\">" + movies[mov].year + "</span>"  + "<span class = \"score\">" + movies[mov].ratings.critics_score + "\%</span>" + "</a>" + "</span>";
 			
-			
-			console.log(movies[mov].title);
 		}
 	}
 	
-	
-	//console.log(similar_JSON);
 }
 
 
