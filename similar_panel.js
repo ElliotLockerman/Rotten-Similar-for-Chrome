@@ -25,41 +25,15 @@ similar_div.setAttribute("id", "similar_panel");
 movie_info.parentNode.insertBefore(similar_div, rule.nextSibling);
 
 
-
-
-
-
-// add the title and loading gif
+// add the title and inner div (with the similar movies, which will slide)
 //var loading_gif = chrome.extension.getURL("ajax-loader.gif");
-similar_div.innerHTML =  "<h2 id=\"similar_title\">Similar Movies</h2>";
-
-
-var opts = {
-  lines: 13, // The number of lines to draw
-  length: 10, // The length of each line
-  width: 3, // The line thickness
-  radius:10, // The radius of the inner circle
-  corners: 1, // Corner roundness (0..1)
-  rotate: 0, // The rotation offset
-  direction: 1, // 1: clockwise, -1: counterclockwise
-  color: '#000', // #rgb or #rrggbb or array of colors
-  speed: 1, // Rounds per second
-  trail: 60, // Afterglow percentage
-  shadow: false, // Whether to render a shadow
-  hwaccel: false, // Whether to use hardware acceleration
-  className: 'spinner', // The CSS class to assign to the spinner
-  zIndex: 2e9, // The z-index (defaults to 2000000000)
-  top: '50%', // Top position relative to parent
-  left: '50%' // Left position relative to parent
-};
-
-
-var spinner = new Spinner(opts).spin();
-document.getElementById("similar_title").parentNode.insertBefore(spinner.el, document.getElementById("similar_title").nextSibling);
-//spinner.style.position = "relative"; //for some reason, its absolute by default
+similar_div.innerHTML =  "<h2 id=\"similar_title\">Similar Movies</h2><div id = \"similar_inner_panel\"></div>";
+var inner = document.getElementById("similar_inner_panel");
 
 
 
+
+var spinner = start_Spinner();
 
 
 
@@ -92,38 +66,21 @@ get_similar(movie_ID, 6)
 
 
 
-
-
 //*********************************************************************
 // Get a JSON of similar movies
 // Gets called at least once, when the ID returns
 function get_similar(movie_ID, num_to_load)
 {
 	spinner.stop();
-	console.log("Movie ID: " + movie_ID); 
-	//similar_div.innerHTML =  "<h2 id=\"similar_title\">Similar Movies</h2>";
-	similar_div.innerHTML = similar_div.innerHTML + "<br>Movie ID: " + movie_ID;
+	inner.innerHTML = "<br>Movie ID: " + movie_ID;
 	
-	spinner.spin();	
+	spinner = start_Spinner();	
 	
 	
 	
 	
 }
 
-//*********************************************************************
-
-
-
-
-//*********************************************************************
-// Dislplay the similar movies received
-// Gets called at least once, when the first similar query returns
-function append_similar(similar_movies)
-{
-	
-	
-}
 //*********************************************************************
 
 
@@ -148,3 +105,32 @@ function load_more()
 {
 	
 }
+
+
+//*********************************************************************
+// Start the spinner. Returns a reference to the spinner so you can stop it
+function start_Spinner()
+{
+	var opts = {
+	  lines: 13, // The number of lines to draw
+	  length: 10, // The length of each line
+	  width: 3, // The line thickness
+	  radius:10, // The radius of the inner circle
+	  corners: 1, // Corner roundness (0..1)
+	  rotate: 0, // The rotation offset
+	  direction: 1, // 1: clockwise, -1: counterclockwise
+	  color: '#000', // #rgb or #rrggbb or array of colors
+	  speed: 1, // Rounds per second
+	  trail: 60, // Afterglow percentage
+	  shadow: false, // Whether to render a shadow
+	  hwaccel: false, // Whether to use hardware acceleration
+	  className: 'spinner', // The CSS class to assign to the spinner
+	  zIndex: 2e9, // The z-index (defaults to 2000000000)
+	  top: '50%', // Top position relative to parent
+	  left: '50%' // Left position relative to parent
+	};
+
+
+	 return new Spinner(opts).spin(inner);
+}
+//*********************************************************************

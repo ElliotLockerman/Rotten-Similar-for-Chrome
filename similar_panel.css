@@ -1,18 +1,18 @@
 #similar_panel
 {
 	height:250px;
-	position:relative; /* needed to keep the spinner inside */
 	top:0;
 }
 
 #similar_inner_panel
 {
-	
+	position:relative; /* needed to keep the spinner inside */
+	height:240px;
 }
 
 .film
 {
-	height:200px;
+	height:240px;
 	float:left;
 	text-align:center;
 	

@@ -5,8 +5,5 @@ chrome.tabs.onUpdated.addListener(function(tabId, change, tab)
 	{
 		// ... show the page action.
 		chrome.pageAction.show(tabId);
-
 	}
-
-}
-);
+});
