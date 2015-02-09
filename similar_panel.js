@@ -1,12 +1,10 @@
 //*********************************************************************
-// create the panel and put in the loading gif
+// Do all the one-time and preperations thingsthings
 
-
-
-// get the elment we want to append after, in this case, the class includes movie_info
+// create the panel
+// get the elment we want to append after, in this case, the class includes movie_info (it looks like they only use movie_info once, so it should be an ID. Would certainly make my live easier)
 var divs = document.getElementsByTagName("div");
 var movie_info;
-
 for (var i in divs)
 {
 	if((' ' + divs[i].className + ' ').indexOf(' ' + "movie_info" + ' ') > -1) 
@@ -27,18 +25,18 @@ movie_info.parentNode.insertBefore(similar_div, rule.nextSibling);
 
 // add the title and inner div (with the similar movies, which will slide)
 //var loading_gif = chrome.extension.getURL("ajax-loader.gif");
-similar_div.innerHTML =  "<h2 id=\"similar_title\">Similar Movies</h2><div id = \"similar_inner_panel\"></div>";
+similar_div.innerHTML =  "<h2>Similar Movies</h2><div id = \"similar_inner_panel\"></div>";
 var inner = document.getElementById("similar_inner_panel");
 
 
-
-
+// Start the spinner for the first time
 var spinner = start_Spinner();
 
 
 
-// Get the ID
-//<meta name="movieID" content="22501">
+
+
+// Get the ID of the movie
 var metas = document.getElementsByTagName("META");
 var movie_ID;
 for (i in metas)
@@ -54,7 +52,7 @@ for (i in metas)
 
 
 // Get the first set of similars
-get_similar(movie_ID, 6)
+get_similar(movie_ID, 5)
 
 //*********************************************************************
 
@@ -69,46 +67,88 @@ get_similar(movie_ID, 6)
 //*********************************************************************
 // Get a JSON of similar movies
 // Gets called at least once, when the ID returns
-function get_similar(movie_ID, num_to_load)
+function get_similar(movie_ID, limit)
 {
+	
+	var api_key = "5vdj7je2uqr83vvx6rnqb4vh";
+	var base_URL = "http://api.rottentomatoes.com/api/public/v1.0/movies/"
+	
+	
+		
+	
+	var similar_URL = base_URL + movie_ID + "/similar.json?limit=" + limit + "&apikey=" + api_key;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", similar_URL, true);
+	xhr.onreadystatechange = function(data)
+	{
+	    if (xhr.readyState == 4) 
+		{
+			display_similar(JSON.parse(xhr.responseText));
+			
+		}
+	}
+
+	xhr.send();
+	
+	
+	
+}
+
+//*********************************************************************
+
+
+
+
+
+
+// Needs to be a different function so it can be called when get_similar's ajax returns
+function display_similar(similar_JSON)
+{
+	movies = similar_JSON.movies
 	spinner.stop();
-	inner.innerHTML = "<br>Movie ID: " + movie_ID;
-	
-	spinner = start_Spinner();	
 	
 	
+	if (movies.length === 0)
+	{// If there are no similar movies
+		inner.innerHTML = "<h3>No Similar Movies Found</h3>"
+	} 
+	else
+	{
+		for (mov in movies)
+		{
+			console.log(movies[mov].posters.thumbnail);
+			
+			inner.innerHTML = inner.innerHTML + "<span class = \"film\"><img src = \"" + movies[mov].posters.thumbnail + "\">" + "<span class = \"title\">" + movies[mov].title + "</span>"  + "<span class = \"year\">" + movies[mov].year + "</span>"  + "<span class = \"score\">" + movies[mov].ratings.critics_score + "\%</span>" + "</span>";
+			
+			
+			console.log(movies[mov].title);
+		}
+	}
+	
+	
+	//console.log(similar_JSON);
+}
+
+
+
+
+function right_button()
+{
 	
 	
 }
+
+function left_button()
+{
+	
+	
+}
+
+
 
 //*********************************************************************
-
-
-
-
-
-
-function shift_right()
-{
-	
-	
-}
-
-function shift_left()
-{
-	
-	
-}
-
-
-function load_more()
-{
-	
-}
-
-
-//*********************************************************************
-// Start the spinner. Returns a reference to the spinner so you can stop it
+// Start the spinner. Returns a reference to the spinner so you can stop it. You should use the global spinner var when starting so other functions can stop it, if needed.
 function start_Spinner()
 {
 	var opts = {

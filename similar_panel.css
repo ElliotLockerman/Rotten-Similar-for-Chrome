@@ -1,19 +1,49 @@
 #similar_panel
 {
-	height:250px;
+	height:160px;
 	top:0;
 }
 
 #similar_inner_panel
 {
 	position:relative; /* needed to keep the spinner inside */
-	height:240px;
+	height:120px;
+	white-space:nowrap;
 }
 
 .film
 {
-	height:240px;
-	float:left;
+	height:100%;
+	width:130px;
 	text-align:center;
+	display:inline-block;
+	padding-top:5px;
+	
+}
+
+.thumbnail
+{
+	display:block;
+	padding:2px;
+}
+
+.title
+{
+	display:block;
+	text-align:center;
+	font-weight:bold;
+	display:block;
+	padding-top:2px;
+	
+}
+
+.year
+{
+	display:block;
+	
+}
+
+.score
+{
 	
 }
