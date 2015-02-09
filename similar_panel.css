@@ -1,0 +1,19 @@
+#similar_panel
+{
+	height:250px;
+	position:relative; /* needed to keep the spinner inside */
+	top:0;
+}
+
+#similar_inner_panel
+{
+	
+}
+
+.film
+{
+	height:200px;
+	float:left;
+	text-align:center;
+	
+}

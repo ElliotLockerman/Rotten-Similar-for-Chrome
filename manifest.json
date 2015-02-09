@@ -1,0 +1,67 @@
+{
+
+  "name": "Rotten Similar for Chrome",
+  "version": "0.1",
+  "description": "Adds a \"similar movies\" pane to Rotten Tomatoes movie pages",
+ 
+
+ "background" : {
+    "scripts": ["background.js"],
+    "persistent": false
+  }, 
+    
+    
+  
+  "content_scripts": 
+    [{
+      "matches": ["http://*.rottentomatoes.com/m/*", "http://*.rottentomatoes.com/tv/*"],
+      "js": ["spin.js", "similar_panel.js"],
+      "css": ["similar_panel.css"],
+      "run_at" : "document_end"
+    }],  
+    
+    
+    
+    
+  "page_action": 
+  {
+	  "default_icon": 
+	  {    
+          "38": "rotten_similar_logo_38.png",             
+          "128": "rotten_similar_logo_128.png",
+          "default_title" : "Similar movies being displayed"
+      }
+
+  },
+    
+     "permissions" : [
+       "tabs", "http://*.rottentomatoes.com/*"
+  ],
+
+	"web_accessible_resources":
+      [
+        "images/ajax-loader.gif"
+       ],
+
+  "manifest_version": 2
+
+}
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
