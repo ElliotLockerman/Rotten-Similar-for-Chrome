@@ -25,14 +25,17 @@
     
   "page_action": 
   {
-	  "default_icon": 
+	 
+  },
+    
+   "icons": 
 	  {    
           "38": "rotten_similar_logo_38.png",             
           "128": "rotten_similar_logo_128.png",
           "default_title" : "Similar movies being displayed"
-      }
-
-  },
+      },
+  
+    
     
      "permissions" : [
        "tabs", "http://*.rottentomatoes.com/*"
@@ -47,6 +50,7 @@
 
 }
 
+        
         
         
         
