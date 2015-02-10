@@ -23,10 +23,29 @@ similar_div.setAttribute("id", "similar_panel");
 movie_info.parentNode.insertBefore(similar_div, rule.nextSibling);
 
 
-// add the title and inner div (with the similar movies, which will slide)
+// add the title, buttons, and inner div (with the similar movies, which will slide)
 //var loading_gif = chrome.extension.getURL("ajax-loader.gif");
-similar_div.innerHTML =  "<h2>Similar Movies</h2><div id = \"similar_inner_panel\"></div>";
-var inner = document.getElementById("similar_inner_panel");
+similar_div.innerHTML =  "<h2>Similar Movies</h2></div>";
+
+/*
+var left_button = document.createElement("span");
+left_button.setAttribute("id", "left_button");
+similar_div.appendChild(left_button);
+*/
+
+inner = document.createElement("div");
+inner.setAttribute("id", "similar_inner_pannel")
+similar_div.appendChild(inner);
+
+/*
+var right_button = document.createElement("span");
+right_button.setAttribute("id", "right_button");
+similar_div.appendChild(right_button);
+*/
+
+// add the buttons
+
+
 
 
 // Start the spinner for the first time
@@ -117,7 +136,7 @@ function display_similar(similar_JSON)
 	{
 		for (mov in movies)
 		{			
-			inner.innerHTML = inner.innerHTML + "<span class = \"film\">" + "<a href = \"" + movies[mov].links.alternate + "\">" + "<img src = \"" + movies[mov].posters.thumbnail + "\">" + "<div class = \"title\">" + movies[mov].title + "</div>"  + "<span class = \"year\">" + movies[mov].year + "</span>"  + "<span class = \"score\">" + movies[mov].ratings.critics_score + "\%</span>" + "</a>" + "</span>";
+			inner.innerHTML = inner.innerHTML + "<span class = \"film\">" + "<a href = \"" + movies[mov].links.alternate + "\">" + "<img src = \"" + movies[mov].posters.thumbnail + "\">" + "<div class = \"title\">" + movies[mov].title + "</div>" + "</a>"  + "<span class = \"year\">" + movies[mov].year + "</span>"  + "<span class = \"score\">" + movies[mov].ratings.critics_score + "\%</span>" + "</span>";
 			
 		}
 	}
@@ -133,9 +152,34 @@ function right_button()
 	
 }
 
+
+function display_right_button()
+{
+	
+}
+
+
+function hide_right_button()
+{
+	
+}
+
+
 function left_button()
 {
 	
+	
+}
+
+
+function display_left_button()
+{
+	
+}
+
+
+function hide_left_button()
+{
 	
 }
 
